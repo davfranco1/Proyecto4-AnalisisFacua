@@ -5,11 +5,11 @@
 
 ## Planteamiento: **Analizando los precios de los supermercados**
 
-Este proyecto forma parte de un bootcamp de formación en Data Science e Inteligencia Artificial.
+- Este proyecto forma parte de un bootcamp de formación en Data Science e Inteligencia Artificial.
 
-El mismo hace uso de herramientas de scraping, procesamiento y análisis de datos para recolectar información sobre productos y precios de diferentes supermercados en España. La fuente principal de datos será la página web [FACUA: Precios Supermercados](https://super.facua.org/). A partir de los datos recolectados, se creará una base de datos en SQL, realizando un análisis exploratorio y generando visualizaciones que permitan extraer conclusiones sobre la variabilidad de precios entre supermercados y otras posibles tendencias.
+- El mismo hace uso de herramientas de scraping, procesamiento y análisis de datos para recolectar información sobre productos y precios de diferentes supermercados en España. La fuente principal de datos será la página web [FACUA: Precios Supermercados](https://super.facua.org/). A partir de los datos recolectados, se creará una base de datos en SQL, realizando un análisis exploratorio y generando visualizaciones que permitan extraer conclusiones sobre la variabilidad de precios entre supermercados y otras posibles tendencias.
 
-La página web de FACUA proporciona información actualizada sobre los precios de productos básicos en seis grandes supermercados de España: Alcampo, Carrefour, Dia, Eroski, Hipercor y Mercadona. Están agrupados en: aceite de girasol, aceite de oliva y leche. La plataforma revisa a diario la evolución de los precios, permitiendo a los consumidores estar informados sobre las fluctuaciones y posibles abusos en los precios.
+- La página web de FACUA proporciona información actualizada sobre los precios de productos básicos en seis grandes supermercados de España: Alcampo, Carrefour, Dia, Eroski, Hipercor y Mercadona. Están agrupados en: aceite de girasol, aceite de oliva y leche. La plataforma revisa a diario la evolución de los precios, permitiendo a los consumidores estar informados sobre las fluctuaciones y posibles abusos en los precios.
 
 
 ## Objetivos del Proyecto
@@ -57,32 +57,34 @@ El proyecto está construido de la siguiente manera:
 ## Lenguaje, librerías y temporalidad
 - El proyecto fué elaborado con Python 3.9 y múltiples librerías de soporte:
 
-    - Librerías para el tratamiento de datos
+    - *Librerías para el tratamiento de datos*
     - [Pandas](https://pandas.pydata.org/docs/)
     - [Numpy](https://numpy.org/doc/)
 
-    - Librerías para captura de datos
+    - *Librerías para captura de datos*
     - [Selenium](https://selenium-python.readthedocs.io)
     - [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
     - [Requests](https://pypi.org/project/requests/)
 
-    - Librerías para gestión de tiempos
+    - *Librerías para gestión de tiempos*
     - [Time](https://docs.python.org/3/library/time.html)
     - [tqdm](https://numpy.org/doc/)
 
-    - Librerías para graficar
+    - *Librerías para graficar*
     - [Plotly](https://plotly.com/python/)
+    - [Seaborn](https://seaborn.pydata.org)
+    - [Matplotlib](https://matplotlib.org/stable/index.html)
 
-    - Librería para gestionar tokens y contraseñas
+    - *Librería para gestionar tokens y contraseñas*
     - [DotEnv](https://pypi.org/project/python-dotenv/)
 
-    - Librería para controlar parámetros del sistema
+    - *Librería para controlar parámetros del sistema*
     - [Sys](https://docs.python.org/3/library/sys.html)
 
-    - Librería para conexión a bases de datos SQL
+    - *Librería para conexión a bases de datos SQL*
     - [psycopg2](https://www.psycopg.org/docs/)
 
-    - Librería para la gestión de avisos
+    - *Librería para la gestión de avisos*
     - [warnings](https://docs.python.org/3/library/warnings.html)
 
 
@@ -126,15 +128,15 @@ El proyecto está construido de la siguiente manera:
 
 - Las tablas "categorias", "productos" y "supermercados" contienen, como sus nombres indican, los nombres de las categorías, los productos y los supermercados.
 
-- Este diseño destaca por varias razones:
+- El diseño destaca por varias razones:
 
-1. Normalización: Las tablas están normalizadas, lo que reduce la redundancia y mejora la integridad de los datos. Cada tabla tiene una clave primaria única (PK) (id_historico, id_categoria, id_producto, id_supermercado) que identifica de manera única cada registro. Cuando se tienen "formas normales", los datos se dividen en tablas relacionadas que garantizan que cada dato se almacene solo una vez.
+1. **Normalización:** Las tablas están normalizadas, lo que reduce la redundancia y mejora la integridad de los datos. Cada tabla tiene una clave primaria única (PK) (id_historico, id_categoria, id_producto, id_supermercado) que identifica de manera única cada registro. Cuando se tienen "formas normales", los datos se dividen en tablas relacionadas que garantizan que cada dato se almacene solo una vez.
 
-2. Relaciones claras: Las relaciones entre las tablas están claramente definidas mediante claves foráneas, o foreign keys (FK). Esto facilita la consulta y el mantenimiento de la base de datos. Por ejemplo, la tabla "histórico" puede referenciar las categorías, productos y supermercados, sin duplicar información.
+2. **Relaciones claras:** Las relaciones entre las tablas están claramente definidas mediante claves foráneas, o foreign keys (FK). Esto facilita la consulta y el mantenimiento de la base de datos. Por ejemplo, la tabla "histórico" puede referenciar las categorías, productos y supermercados, sin duplicar información.
 
-3. Escalabilidad: Este diseño permite agregar nuevas categorías, productos y supermercados sin necesidad de modificar la estructura de la tabla "histórico". Solo se necesita insertar nuevos registros en las tablas correspondientes.
+3. **Escalabilidad:** Este diseño permite agregar nuevas categorías, productos y supermercados sin necesidad de modificar la estructura de la tabla "histórico". Solo se necesita insertar nuevos registros en las tablas correspondientes.
 
-4. Consultas eficientes: La estructura facilita la realización de consultas complejas. Por ejemplo, se puede obtener información histórica de precios y variaciones de productos específicos en supermercados específicos, utilizando las relaciones definidas.
+4. **Consultas eficientes:** La estructura facilita la realización de consultas complejas. Por ejemplo, se puede obtener información histórica de precios y variaciones de productos específicos en supermercados específicos, utilizando las relaciones definidas.
 
 - Un diseño es eficiente y bien estructurado cuando es escalable y facilita la gestión y consulta de los datos almacenados.
 
