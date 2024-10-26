@@ -7,7 +7,7 @@ from tqdm import tqdm
 import pandas as pd
 import numpy as np
 
-# Librerías para captura de datos con
+# Librerías para captura de datos
 import requests
 from bs4 import BeautifulSoup
 

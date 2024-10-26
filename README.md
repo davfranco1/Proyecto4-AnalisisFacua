@@ -141,11 +141,11 @@ El proyecto está construido de la siguiente manera:
 - Un diseño es eficiente y bien estructurado cuando es escalable y facilita la gestión y consulta de los datos almacenados.
 
 
-## Hallazgos, Conclusiones y Próximos Pasos
+## Conclusiones y Próximos Pasos
 
 - Te invitamos a descargar el [PDF Resultados](PENDIENTE), que resume de manera gráfica el EDA que hemos preparado.
 
-- Además, el notebook [3_QueriesVisualizaciónAnálisis](PENDIENTE), contiene explicaciones de los datos y las visualizaciones generadas durante el proyecto.
+- Además, el notebook [3_QueriesVisualizaciónAnálisis](https://github.com/davfranco1/Proyecto4-AnalisisFacua/blob/main/notebooks/3_QueriesVisualizaciónAnálisis.ipynb), contiene explicaciones de los datos y las visualizaciones generadas durante el proyecto.
 
 
 ## Autor
