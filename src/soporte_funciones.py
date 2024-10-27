@@ -136,11 +136,19 @@ def captura_historicos_facua(lista_links):
         DataFrame: Un DataFrame que contiene datos históricos de productos.
     """
     df_completo = pd.DataFrame()
+
+    # Para cada link en la lista, realizamos las siguientes operaciones:
     for link in tqdm(lista_links):
+
+        # Si no encuentra la tabla o hay otro error, pasa al siguiente link.
         try:
             url = link
             response = requests.get(url)
+
+            # Se crea la sopa
             soup = BeautifulSoup(response.content, "html.parser")
+
+            # Se busca la tabla y se almacena en un DF
             tabla = soup.find("table")
             encabezados = [encabezado.text.strip() for encabezado in tabla.find_all("th")]
             filas = []
@@ -150,20 +158,23 @@ def captura_historicos_facua(lista_links):
                 filas.append(datos_fila)
             df_tabla = pd.DataFrame(filas, columns=encabezados)
 
-            # Limpiar datos con Pandas
+            # Se realiza una limpeza y organización inicial de los datos utilizando Pandas
             df_tabla[["Var. Euros", "Var. Porcentaje"]] = df_tabla["Variación"].str.split(" ", expand=True)
             df_tabla.drop(columns="Variación", inplace=True)
             df_tabla["Producto"] = url.split("/")[5].replace("-", " ").title()
             df_tabla["Supermercado"] = url.split("/")[3].capitalize()
             df_tabla["Categoría"] = url.split("/")[4].capitalize()
             df_tabla = df_tabla.rename(columns={"Día": "Fecha"})
-            #df_tabla["Fecha"] = pd.to_datetime(df_tabla["Fecha"], format="%d%m%Y") #está causando DFs vacíos
+            #df_tabla["Fecha"] = pd.to_datetime(df_tabla["Fecha"], format="%d/%m/%Y").dt.strftime("%Y-%m-%d") #está causando DFs vacíos
             df_tabla["Precio (€)"] = df_tabla["Precio (€)"].str.replace(",", ".").apply(float)
             df_tabla = df_tabla.reindex(columns=["Fecha", "Producto", "Precio (€)", "Categoría", "Supermercado", "Var. Euros", "Var. Porcentaje"])
 
-            df_completo = pd.concat([df_completo, df_tabla])
-        except:
-            pass
+            # Se van concatenando los DFs uno encima del otro.
+            df_completo = pd.concat([df_completo, df_tabla], ignore_index=True) # Ignore para mantener índice continuo
+
+        # Gestión de errores
+        except Exception as e:
+            print(f"Error procesando la URL: {url}, motivo: {e}")
 
     return df_completo
 
@@ -195,7 +206,7 @@ def dbeaver_conexion(database):
             print("Error de conexión")
         else:
             print(f"Ocurrió el error {e}")
-    cursor = conexion.cursor()
+
     return conexion
 
 
@@ -214,7 +225,8 @@ def dbeaver_fetch(conexion, query):
     cursor.execute(query)
     # resultado_query = cursor.fetchall()
     # Si quisiéramos que el resultado fuera en forma de lista podríamos utilizar esta línea de código.
-
+    # En este caso, sin embargo, nos interesa obtener directamente DFs.
+    
     df = pd.DataFrame(cursor.fetchall())
     df.columns = [col[0] for col in cursor.description]
 
