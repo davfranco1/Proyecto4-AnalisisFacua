@@ -157,7 +157,7 @@ def captura_historicos_facua(lista_links):
             df_tabla["Supermercado"] = url.split("/")[3].capitalize()
             df_tabla["Categoría"] = url.split("/")[4].capitalize()
             df_tabla = df_tabla.rename(columns={"Día": "Fecha"})
-            df_tabla["Fecha"] = df_tabla["Fecha"].apply(pd.to_datetime)
+            #df_tabla["Fecha"] = pd.to_datetime(df_tabla["Fecha"], format="%d%m%Y") #está causando DFs vacíos
             df_tabla["Precio (€)"] = df_tabla["Precio (€)"].str.replace(",", ".").apply(float)
             df_tabla = df_tabla.reindex(columns=["Fecha", "Producto", "Precio (€)", "Categoría", "Supermercado", "Var. Euros", "Var. Porcentaje"])
 
