@@ -178,7 +178,9 @@ def captura_historicos_facua(lista_links):
 
     return df_completo
 
+# Importamos el usuario y contraseña que hemos guardado en el archivo .env, de modo que podamos utilizarlos como inputs de nuestra función.
 dbeaver_pw = os.getenv("dbeaver_pw")
+dbeaver_user = os.getenv("dbeaver_user")
 
 
 def dbeaver_conexion(database):
@@ -194,7 +196,7 @@ def dbeaver_conexion(database):
     try:
         conexion = psycopg2.connect(
             database=database,
-            user="my_user",
+            user=dbeaver_user,
             password=dbeaver_pw,
             host="localhost",
             port="5432"
